@@ -27,11 +27,11 @@ class PageController extends Controller
             
             if ($form->isValid()){
                 
-               $message = new \Swift_Message::newInstance()
-                       ->setSubject('Contact enquiry from sfblog')
+               $message = \Swift_Message::newInstance();
+               $message->setSubject('Contact enquiry from sfblog')
                        ->setFrom('enquiries@blah.com')
                        ->setTo( $this->container->getParameter('blogger_blog.emails.contact_email')  )
-                       ->setBody( $this->renderView('BloggerBundle:Page:contactEmail.txt.twig', array('enquiry' > $enquiry))  );
+                       ->setBody( $this->renderView('BloggerBlogBundle:Page:contactEmail.txt.twig', array('enquiry' => $enquiry))  );
                
                $this->get('mailer')->send($message);
                
