@@ -6,6 +6,12 @@
     <header>
         <h1>Contact sfblog</h1>
     </header>
+
+    {% if app.session.hasFlash('blogger-notice') %}
+    <div class="blogger-notice">
+        {{ app.session.flash('blogger-notice' }}
+    </div>
+    {% endif%}
     
     <p>Want to contact sfblog?</p>
     
