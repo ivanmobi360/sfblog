@@ -63,13 +63,13 @@ class Blog {
         
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         
-        $this->setCreated(new DateTime());
-        $this->setUpdated(new DateTime());
+        $this->setCreated(new \DateTime());
+        $this->setUpdated(new \DateTime());
     }
     
     public function setUpdatedValue()
     {
-        $this->setUpdated(new DateTime());
+        $this->setUpdated(new \DateTime());
     }
 
     
