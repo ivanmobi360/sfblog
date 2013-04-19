@@ -13,11 +13,7 @@ class CommentType extends AbstractType
         $builder
             ->add('user')
             ->add('comment')
-            ->add('approved')
-            ->add('created')
-            ->add('updated')
-            ->add('blog')
-        ;
+         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
