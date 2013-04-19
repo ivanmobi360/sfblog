@@ -1,6 +1,10 @@
 <?php
 namespace Blogger\BlogBundle\Entity;
 
+use Symfony\Component\Validator\Constraints\NotBlank;
+
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +51,13 @@ class Comment
      * @ORM\Column(type="datetime")
      */
     protected $updated;
+    
+    
+    public static function loadValidatorMetadata(ClassMetadata $metadata){
+    	$metadata->addPropertyConstraint('user', new NotBlank( array('message' => 'You must enter your name')));
+    	$metadata->addPropertyConstraint('comment', new NotBlank( array('message' => 'You must enter a comment')));
+    }
+    
 
     public function __construct()
     {
