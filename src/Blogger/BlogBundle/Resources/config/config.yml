@@ -1,2 +1,5 @@
 parameters:
   blogger_blog.emails.contact_email: irodriguez@mobi360.ca
+  
+  #max latest comments
+  blogger_blog.comments.latest_comments_limit: 10

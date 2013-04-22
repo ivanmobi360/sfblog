@@ -59,7 +59,15 @@ class PageController extends Controller
     	$tags = $em->getRepository('BloggerBlogBundle:Blog')->getTags();
     	$tagWeights = $em->getRepository('BloggerBlogBundle:Blog')->getTagWeights($tags);
     	
-    	return $this->render('BloggerBlogBundle:Page:sidebar.html.twig', array('tags'=>$tagWeights));
+    	
+    	$commentLimit = $this->container->getParameter('blogger_blog.comments.latest_comments_limit');
+    	$latestComments = $em->getRepository('BloggerBlogBundle:Comment')->getLatestComments($commentLimit);
+    	
+    	
+    	return $this->render('BloggerBlogBundle:Page:sidebar.html.twig', array(
+    			'tags'=>$tagWeights,
+    			'latestComments' => $latestComments
+    			));
     	
     }
     
