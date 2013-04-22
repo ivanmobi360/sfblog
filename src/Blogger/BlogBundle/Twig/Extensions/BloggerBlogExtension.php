@@ -1,6 +1,8 @@
 <?php
 namespace Blogger\BlogBundle\Twig\Extensions;
 
+use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
+
 class BloggerBlogExtension extends \Twig_Extension
 {
 	public function getFilters()
@@ -15,7 +17,7 @@ class BloggerBlogExtension extends \Twig_Extension
 		$delta = time() - $dateTime->getTimestamp();
 		
 		if ($delta<0){
-			throw \InvalidArgumentException("createdAgo is unable to handle dates in the future");
+			throw new \InvalidArgumentException("createdAgo is unable to handle dates in the future");
 		}
 		
 		$duration = "";
@@ -23,9 +25,9 @@ class BloggerBlogExtension extends \Twig_Extension
 		if($delta < 60){
 			//seconds
 			$time = $delta;
-			$duration = $time . " second" . ($time >1 ? "s": ''). ' ago';
+			$duration = $time . " second" . ( $time=== 0 || $time >1 ? "s": ''). ' ago';
 		}
-		else if( $delta <= 3600){
+		else if( $delta < 3600){
 			//mins
 			$time = floor($delta/60);
 			$duration = $time . " minute" . ($time >1 ? "s": ''). ' ago';
