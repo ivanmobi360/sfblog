@@ -22,14 +22,33 @@ class PageControllerTest extends WebTestCase {
 		$this->assertTrue($crawler->filter('article.blog')->count()>0);
 		
 		//find first link
-		$blogLink = $crawler->filter('article.blog h2 a')->eq(1);//first();
+		$blogLink = $crawler->filter('article.blog h2 a')->first();
 		$blogTitle = $blogLink->text();
-		//echo $blogLink->link()->getUri();
 		$crawler = $client->click($blogLink->link());
-		//$crawler = $client->request( 'GET', $blogLink->link()->getUri());
+        $this->assertEquals(1, $crawler->filter('h2:contains("' . $blogTitle . '")' )->count());
 		
-		//$this->assertEquals(1, $crawler->filter('h2:contains("' . $blogTitle . '")' )->count());
-		
+	}
+	
+	function testContact()
+	{
+	   $client = static::createClient();
+	   $crawler = $client->request('GET', '/contact');
+
+	   $this->assertEquals(1, $crawler->filter('h1:contains("Contact sfblog")')->count() );
+	   
+	   $form = $crawler->selectButton('Submit')->form();
+	   $form['contact[name]'] = 'name';
+	   $form['contact[email]'] = 'email@email.com';
+	   $form['contact[subject]'] = 'Subject';
+	   $form['contact[body]'] = 'The comment body must be at least 50 characters long as there is a validation constrain on the Enquiry entity';
+	   
+	   $crawler = $client->submit($form);
+	   $crawler = $client->followRedirect();
+	   //echo " *** LOL *** " . $crawler->filter('.blogger-notice')->first()->text();
+	   
+	   $this->assertEquals(1, $crawler->filter('.blogger-notice:contains("Your contact enquiry was successfully sent. Thank you! ")')->count());
+	   
+	   
 	}
 	
 }
