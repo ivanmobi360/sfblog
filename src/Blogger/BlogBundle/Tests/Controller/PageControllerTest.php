@@ -43,6 +43,27 @@ class PageControllerTest extends WebTestCase {
 	   $form['contact[body]'] = 'The comment body must be at least 50 characters long as there is a validation constrain on the Enquiry entity';
 	   
 	   $crawler = $client->submit($form);
+	   
+	   
+	   //Check email has been sent
+	   if ($profile = $client->getProfile()){
+
+	       $swiftMailerProfiler = $profile->getCollector('swiftmailer');
+	       
+	       //only one message should have been sent
+	       $this->assertEquals(1, $swiftMailerProfiler->getMessageCount());
+	       
+	       //Get the first message
+	       $messages = $swiftMailerProfiler->getMessages();
+	       $message = array_shift($message);
+	       
+	       $symblogEmail = $client->getContainer()->getParameter('blogger_blog.emails.contact_email');
+	       
+	       //Check message is being sent to correct address
+	       $this->assertArrayHasKey($symblogEmail, $message->getTo());
+	   }
+	   
+	   
 	   $crawler = $client->followRedirect();
 	   
 	   $this->assertEquals(1, $crawler->filter('.blogger-notice:contains("Your contact enquiry was successfully sent. Thank you!")')->count());
