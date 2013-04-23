@@ -2,6 +2,8 @@
 
 namespace Blogger\BlogBundle\Controller;
 
+use Blogger\BlogBundle\Entity\Blog;
+
 use Blogger\BlogBundle\Form\BlogType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -72,11 +74,29 @@ class AdminController extends Controller
     
     /**
      * @Route("/post/create", name="create_post")
-     * @Template()
+     * @Template("BloggerBlogBundle:Admin:newPost.html.twig")
      */
     public function createPostAction()
     {
-        $form = $this->createForm(new BlogType());
+        
+        $blog = new Blog();
+        $blog->setAuthor($this->getUser()->getUsername());
+        $request = $this->getRequest();
+        $form = $this->createForm(new BlogType(), $blog);
+        $form->bindRequest($request);
+        
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($blog);
+            $em->flush();
+            
+            return $this->redirect($this->generateUrl('BloggerBlogBundle_blog_show', array(
+                    'id' => $blog->getId(),
+                    'slug' => $blog->getSlug()
+                    )));
+            
+        }
+        
     
         return array('form'=> $form->createView());
     }

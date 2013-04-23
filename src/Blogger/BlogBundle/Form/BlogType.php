@@ -31,6 +31,6 @@ class BlogType extends AbstractType
 
     public function getName()
     {
-        return 'blogger_blogbundle_blogtype';
+        return 'blog';
     }
 }
