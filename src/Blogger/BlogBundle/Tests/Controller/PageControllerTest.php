@@ -44,9 +44,8 @@ class PageControllerTest extends WebTestCase {
 	   
 	   $crawler = $client->submit($form);
 	   $crawler = $client->followRedirect();
-	   //echo " *** LOL *** " . $crawler->filter('.blogger-notice')->first()->text();
 	   
-	   $this->assertEquals(1, $crawler->filter('.blogger-notice:contains("Your contact enquiry was successfully sent. Thank you! ")')->count());
+	   $this->assertEquals(1, $crawler->filter('.blogger-notice:contains("Your contact enquiry was successfully sent. Thank you!")')->count());
 	   
 	   
 	}
