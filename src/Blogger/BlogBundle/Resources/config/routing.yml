@@ -29,3 +29,7 @@ BloggerBlogBundle_comment_create:
   requirements:
     _method: post
     blog_id: \d+
+    
+admin:
+    resource: "@BloggerBlogBundle/Controller/AdminController.php"
+    type:     annotation    
