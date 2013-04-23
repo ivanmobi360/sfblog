@@ -4,6 +4,7 @@ namespace Blogger\BlogBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\BlogRepository")
@@ -44,6 +45,11 @@ class Blog {
      * @ORM\Column(type="string", length=20)
      */
     protected $image;
+    
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    protected $file;
     
     /**
      * @ORM\Column(type="text")
