@@ -33,3 +33,9 @@ BloggerBlogBundle_comment_create:
 admin:
     resource: "@BloggerBlogBundle/Controller/AdminController.php"
     type:     annotation    
+    
+BloggerBlogBundle_post_create:
+  pattern: /admin/post/create
+  defaults: { _controller: BloggerBlogBundle:AdminController:createPost }
+  requirements:
+    _method: post

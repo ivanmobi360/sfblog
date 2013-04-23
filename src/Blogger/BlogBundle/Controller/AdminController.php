@@ -2,6 +2,8 @@
 
 namespace Blogger\BlogBundle\Controller;
 
+use Blogger\BlogBundle\Form\BlogType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -58,12 +60,25 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/hello/admin/{name}", name="_demo_secured_hello_admin")
-     * @Secure(roles="ROLE_ADMIN")
+     * @Route("/post/new", name="new_post")
      * @Template()
      */
-    public function helloadminAction($name)
+    public function newPostAction()
     {
-        return array('name' => $name);
+        $form = $this->createForm(new BlogType());
+        
+        return array('form'=> $form->createView());
     }
+    
+    /**
+     * @Route("/post/create", name="create_post")
+     * @Template()
+     */
+    public function createPostAction()
+    {
+        $form = $this->createForm(new BlogType());
+    
+        return array('form'=> $form->createView());
+    }
+    
 }
