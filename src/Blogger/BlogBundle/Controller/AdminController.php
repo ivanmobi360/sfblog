@@ -67,10 +67,21 @@ class AdminController extends Controller
      */
     public function newPostAction()
     {
-        $form = $this->createForm(new BlogType());
+        //$form = $this->createForm(new BlogType());
+        $form = $this->createBlogForm(new Blog());
         
         return array('form'=> $form->createView());
     }
+    
+    protected function createBlogForm($blog){
+        return $this->createFormBuilder($blog)
+        ->add('title')
+        ->add('blog', 'textarea')
+        ->add('file', null, array('label'=>'Image'))
+        ->add('tags', 'text')
+        ->getForm();
+    }
+    
     
     /**
      * @Route("/post/create", name="create_post")
@@ -82,7 +93,9 @@ class AdminController extends Controller
         $blog = new Blog();
         $blog->setAuthor($this->getUser()->getUsername());
         $request = $this->getRequest();
-        $form = $this->createForm(new BlogType(), $blog);
+        //$form = $this->createForm(new BlogType(), $blog);
+        //$form = $this->createFormBuilder($blog);
+        $form = $this->createBlogForm($blog);
         $form->bindRequest($request);
         
         if($form->isValid()){

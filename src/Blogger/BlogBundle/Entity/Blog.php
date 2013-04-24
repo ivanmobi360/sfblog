@@ -3,8 +3,10 @@
 namespace Blogger\BlogBundle\Entity;
 
 
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\BlogRepository")
@@ -42,14 +44,14 @@ class Blog {
     protected $blog;
     
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=128)
      */
     protected $image;
     
     /**
      * @Assert\File(maxSize="6000000")
      */
-    protected $file;
+    protected $file; //private element to hold uploaded file data
     
     /**
      * @ORM\Column(type="text")
@@ -348,5 +350,96 @@ class Blog {
     
     	return $text;
     }
+    
+    // ******************** uploaded file stuff ************************
+    private $temp;
+    
+    /**
+     * @return UploadedFile
+     */
+    public function getFile(){
+        return $this->file;
+    }
+    
+    /**
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file=null){
+        $this->file = $file;
+        //check if we have an old image path
+        if(isset($this->image)){
+            //store the old name to delete after the update
+            $this->temp = $this->image;
+            $this->image = null;
+        }else{
+            $this->image = 'initial';
+        }        
+    }
+    
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile() ){
+            //generate some unique filename
+            $filename = sha1(uniqid(mt_rand(), true));
+            $this->image = $filename . '.' . $this->getFile()->guessExtension();
+        }
+    }
+    
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if(null == $this->getFile()){
+            return;
+        }
+        
+        $this->getFile()->move($this->getImagesFileSystemDir(), $this->image);
+        
+        //check if we have an old image
+        if(isset($this->temp)){
+            //delete old image
+            unlink($this->getImagesFileSystemDir() . '/'  .$this->temp);
+            $this->temp = null;
+        }
+        
+        $this->file = null;
+    }
+    
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload(){
+        if($file = $this->getImageAbsolutePath()){
+            unlink($file);
+        }
+    }
+    
+    
+    protected function getImagesFileSystemDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getImagesWebDir();
+    }
+    
+    protected function getImagesWebDir(){
+        return 'images';
+    }
+    
+    function getImageUrl(){
+        return null == $this->image ? null : $this->getImagesWebDir() .$this->image;
+    }
+    
+    function getImageAbsolutePath(){
+        return null == $this->image ? null : $this->getImagesFileSystemDir() . $this->image;
+    }
+    
+    
+    
+    
     
 }
