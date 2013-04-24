@@ -25,11 +25,20 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface {
         $user->setPassword( $coder->encodePassword('123456', $user->getSalt() ) );
         $user->setEmail('admin@blah.com');
         $user->setIsActive(true);
-        
+        $this->addReference('admin', $user);
         $manager->persist($user);
+        
+        $user = new User();
+        $user->setUsername('maxime');
+        $user->setPassword( $coder->encodePassword('123456', $user->getSalt() ) );
+        $user->setEmail('maxime@blah.com');
+        $user->setIsActive(false);
+        $manager->persist($user);
+        
+        
         $manager->flush();
         
-        $this->addReference('admin', $user);
+        
         
     }
 

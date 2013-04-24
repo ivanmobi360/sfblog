@@ -1,6 +1,8 @@
 <?php
 namespace Blogger\BlogBundle\Entity;
 
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  *
  */
-class User implements UserInterface, \Serializable
+class User implements AdvancedUserInterface, \Serializable
 {
     
     /**
@@ -205,4 +207,28 @@ class User implements UserInterface, \Serializable
     {
         return $this->isActive;
     }
+    
+    // **************************** Advanced user interface ****************************
+    
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+    
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+    
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+    
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
+    
+    
 }
