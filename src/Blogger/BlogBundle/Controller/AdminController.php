@@ -52,13 +52,12 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/hello", defaults={"name"="World"}),
-     * @Route("/hello/{name}", name="_admin_hello")
+     * @Route("/", name="_admin_home")
      * @Template()
      */
-    public function helloAction($name)
+    public function homeAction()
     {
-        return array('name' => $name);
+        return array('name' => $this->getUser()->getUsername());
     }
 
     /**
@@ -67,7 +66,6 @@ class AdminController extends Controller
      */
     public function newPostAction()
     {
-        //$form = $this->createForm(new BlogType());
         $form = $this->createBlogForm(new Blog());
         
         return array('form'=> $form->createView());
@@ -93,8 +91,6 @@ class AdminController extends Controller
         $blog = new Blog();
         $blog->setAuthor($this->getUser()->getUsername());
         $request = $this->getRequest();
-        //$form = $this->createForm(new BlogType(), $blog);
-        //$form = $this->createFormBuilder($blog);
         $form = $this->createBlogForm($blog);
         $form->bindRequest($request);
         
