@@ -18,7 +18,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface {
     
     public function load(ObjectManager $manager) {
         
-        $coder = new MessageDigestPasswordEncoder(); //srsly?
+        $coder = new MessageDigestPasswordEncoder('sha1', true, 1); //srsly?
 
         $user = new User();
         $user->setUsername('admin');
