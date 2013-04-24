@@ -113,7 +113,7 @@ class CommentFixtures extends \Doctrine\Common\DataFixtures\AbstractFixture impl
     }    
     
     public function getOrder() {
-        return 2;
+        return 3;
     }
 
     
