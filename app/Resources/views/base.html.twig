@@ -30,6 +30,13 @@
                                 <li><a href="{{ path('BloggerBlogBundle_homepage') }}">Home</a></li>
                                 <li><a href="{{ path('BloggerBlogBundle_about')  }}">About</a></li>
                                 <li><a href="{{ path('BloggerBlogBundle_contact')  }}">Contact</a></li>
+                                <li>
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                    <a href="{{ path('_logout') }}">Logout</a>
+                                {% else %}
+                                    <a href="{{ path('_login') }}">Admin Login</a>    
+                                {% endif %}
+                                </li>
                             </ul>
                         </nav>
                     {% endblock %}
