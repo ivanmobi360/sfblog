@@ -34,9 +34,10 @@ class Blog {
     protected $title;
     
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="blogs")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    protected $author;
+    protected $user;
     
     /**
      * @ORM\Column(type="text")
@@ -442,4 +443,27 @@ class Blog {
     
     
     
+
+    /**
+     * Set user
+     *
+     * @param \Blogger\BlogBundle\Entity\User $user
+     * @return Blog
+     */
+    public function setUser(\Blogger\BlogBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Blogger\BlogBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

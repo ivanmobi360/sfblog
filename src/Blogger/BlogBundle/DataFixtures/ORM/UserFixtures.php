@@ -33,6 +33,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface {
         $user->setPassword( $coder->encodePassword('123456', $user->getSalt() ) );
         $user->setEmail('maxime@blah.com');
         $user->setIsActive(false);
+        $this->addReference('maxime', $user);
         $manager->persist($user);
         
         

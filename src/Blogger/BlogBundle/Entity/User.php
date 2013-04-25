@@ -1,6 +1,8 @@
 <?php
 namespace Blogger\BlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -48,9 +50,15 @@ class User implements AdvancedUserInterface, \Serializable
      */
     protected $isActive;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Blog", mappedBy="user")
+     */
+    protected $blogs;
+    
     function __construct(){
         $this->isActive = true;
         $this->salt = md5(uniqid(null, true));
+        $this->blogs = new ArrayCollection();
     }
     
     // ************************* Interfaces *******************************************
@@ -231,4 +239,37 @@ class User implements AdvancedUserInterface, \Serializable
     }
     
     
+
+    /**
+     * Add blogs
+     *
+     * @param \Blogger\BlogBundle\Entity\Blog $blogs
+     * @return User
+     */
+    public function addBlog(\Blogger\BlogBundle\Entity\Blog $blogs)
+    {
+        $this->blogs[] = $blogs;
+    
+        return $this;
+    }
+
+    /**
+     * Remove blogs
+     *
+     * @param \Blogger\BlogBundle\Entity\Blog $blogs
+     */
+    public function removeBlog(\Blogger\BlogBundle\Entity\Blog $blogs)
+    {
+        $this->blogs->removeElement($blogs);
+    }
+
+    /**
+     * Get blogs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBlogs()
+    {
+        return $this->blogs;
+    }
 }
