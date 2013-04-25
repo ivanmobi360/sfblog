@@ -52,7 +52,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/", name="_admin_home")
+     * @Route("/", name="admin_home")
      * @Template()
      */
     public function homeAction()

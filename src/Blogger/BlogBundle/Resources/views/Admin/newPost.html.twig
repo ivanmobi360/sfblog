@@ -5,4 +5,5 @@
 {% block body %}
 	<h1>Add a New Post</h1>
 	{% include 'BloggerBlogBundle:Blog:form.html.twig' with {'form': form} %}
+	<p><a href="{{ path('admin_home') }}">Back</a></p>
 {% endblock %}	

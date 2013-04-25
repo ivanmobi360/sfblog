@@ -34,7 +34,7 @@
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                     <a href="{{ path('_logout') }}">Logout</a>
                                 {% else %}
-                                    <a href="{{ path('_login') }}">Admin Login</a>    
+                                    <a href="{{ path('admin_home') }}">Admin Login</a>    
                                 {% endif %}
                                 </li>
                             </ul>
