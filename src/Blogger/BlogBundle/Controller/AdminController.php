@@ -89,7 +89,7 @@ class AdminController extends Controller
     {
         
         $blog = new Blog();
-        $blog->setAuthor($this->getUser()->getUsername());
+        $blog->setUser($this->getUser());
         $request = $this->getRequest();
         $form = $this->createBlogForm($blog);
         $form->bindRequest($request);

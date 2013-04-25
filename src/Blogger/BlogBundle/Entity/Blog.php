@@ -123,28 +123,6 @@ class Blog {
         return $this->title;
     }
 
-    /**
-     * Set author
-     *
-     * @param string $author
-     * @return Blog
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-    
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return string 
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
 
     /**
      * Set blog

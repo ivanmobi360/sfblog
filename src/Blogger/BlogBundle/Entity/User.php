@@ -272,4 +272,9 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->blogs;
     }
+    
+    function __toString()
+    {
+        return $this->username;
+    }
 }
