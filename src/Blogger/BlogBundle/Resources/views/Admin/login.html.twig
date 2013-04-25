@@ -11,7 +11,7 @@
         <div class="error">{{ error.message }}</div>
     {% endif %}
 
-    <form action="{{ path("_login_check") }}" method="post" id="login">
+    <form action="{{ path("_login_check") }}" method="post" id="login" class="blogger">
         <div>
             <label for="username">Username</label>
             <input type="text" id="username" name="_username" value="{{ last_username }}" />
@@ -22,13 +22,9 @@
             <input type="password" id="password" name="_password" />
         </div>
 
-        <button type="submit" class="sf-button">
-            <span class="border-l">
-                <span class="border-r">
-                    <span class="btn-bg">Login</span>
-                </span>
-            </span>
-        </button>
+        <p>
+		<input type="submit" value="Login" >
+	</p>
     </form>
 {% endblock %}
 

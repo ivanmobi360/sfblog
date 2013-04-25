@@ -3,13 +3,14 @@ form.blogger { font-size: 16px; }
 form.blogger div { clear: left; margin-bottom: 10px; }
 form.blogger label { float: left; margin-right: 10px; text-align: right; width: 100px; font-weight: bold; vertical-align: top; padding-top: 10px; }
 form.blogger input[type="text"],
-form.blogger input[type="email"]
+form.blogger input[type="email"],
+form.blogger input[type="password"]
     { width: 500px; line-height: 26px; font-size: 20px; min-height: 26px; }
 form.blogger textarea { width: 500px; height: 150px; line-height: 26px; font-size: 20px; }
 form.blogger input[type="submit"] { margin-left: 110px; width: 508px; line-height: 26px; font-size: 20px; min-height: 26px; }
 form.blogger ul li { color: #ff0000; margin-bottom: 5px; }
 
-.date { margin-bottom: 20px; border-bottom: 1px solid #ccc; font-size: 24px; color: #666; line-height: 30px }
+/*.date { margin-bottom: 20px; border-bottom: 1px solid #ccc; font-size: 24px; color: #666; line-height: 30px }*/
 .blog { margin-bottom: 20px; }
 .blog img { width: 190px; float: left; padding: 5px; border: 1px solid #ccc; margin: 0 10px 10px 0; }
 .blog .meta { clear: left; margin-bottom: 20px; }
@@ -24,3 +25,27 @@ form.blogger ul li { color: #ff0000; margin-bottom: 5px; }
 .comments .comment p { margin-bottom: 0; }
 .comments h3 { background: #eee; padding: 10px; font-size: 20px; margin-bottom: 20px; clear: both; }
 .comments .previous-comments { margin-bottom: 20px; }
+
+
+.postinfo {
+    color: #787878;
+    font-size: 0.875em;
+    list-style: none outside none;
+    margin: 0.5em 0 1em;
+}
+
+
+.postinfo li {
+    font-size: 1em;
+}
+.postinfo li.date {
+    background: url("/images/inspect_sprite.png") no-repeat scroll 0 -350px transparent;
+    padding-left: 19px;
+    padding-top: 2px;
+	padding-bottom:8px;
+	width: 200px;
+}
+
+.snippet{
+	margin-top: 20px;
+}

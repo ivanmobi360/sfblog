@@ -8,8 +8,6 @@
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         {% block stylesheets %}
-            <link href='http://fonts.googleapis.com/css?family=Irish+Grover' rel='stylesheet' type='text/css'>
-            <link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
             {% stylesheets
                 'css/*'
             %}
@@ -31,20 +29,20 @@
                                 <li><a href="{{ path('BloggerBlogBundle_about')  }}">About</a></li>
                                 <li><a href="{{ path('BloggerBlogBundle_contact')  }}">Contact</a></li>
                                 <li>
-                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                    <a href="{{ path('_logout') }}">Logout</a>
-                                {% else %}
-                                    <a href="{{ path('admin_home') }}">Admin Login</a>    
-                                {% endif %}
+                                    <a href="{{ path('admin_home') }}">Admin</a>
                                 </li>
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <li>
+                                    <a href="{{ path('_logout') }}">Logout</a>
+                                </li>
+                                {% endif %}
                             </ul>
                         </nav>
                     {% endblock %}
                 </div>
 
                 <hgroup>
-                    <h2>{% block blog_title %}<a href="{{ path('BloggerBlogBundle_homepage') }}">symblog</a>{% endblock %}</h2>
-                    <h3>{% block blog_tagline %}<a href="{{ path('BloggerBlogBundle_homepage') }}">creating a blog in Symfony2</a>{% endblock %}</h3>
+                    <h2>{% block blog_title %}<a href="{{ path('BloggerBlogBundle_homepage') }}">Small Blog</a>{% endblock %}</h2>
                 </hgroup>
             </header>
 

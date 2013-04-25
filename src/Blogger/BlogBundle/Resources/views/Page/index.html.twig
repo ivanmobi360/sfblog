@@ -3,14 +3,18 @@
 {% block body %}
     {% for blog in blogs %}
 <article class="blog">
-    <div class="date"><time datetime="{{ blog.created|date('c') }}" >{{ blog.created|date('l, F j, Y') }}</time></div>
+    
     
     <header>
         <h2><a href="{{ path( 'BloggerBlogBundle_blog_show', { 'id':blog.id, 'slug':blog.slug } ) }}">{{ blog.title }}</a></h2>
     </header>
+    <u class="postinfo">
+        <li class="date"><time datetime="{{ blog.created|date('c') }}" >{{ blog.created|date('l, F j, Y') }}</time></li>
+    </u>
     
-    <img src="{{ asset( ['images/', blog.image]|join ) }}" />
+    
     <div class="snippet" >
+        <img src="{{ asset( ['images/', blog.image]|join ) }}" />
         <p>{{ blog.blog(500) }}</p>
         <p class="continue"><a href="{{ path( 'BloggerBlogBundle_blog_show', { 'id':blog.id, 'slug':blog.slug } ) }}" >Continue reading...</a></p>
     </div>
