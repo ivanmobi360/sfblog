@@ -2,6 +2,8 @@
 
 namespace Blogger\BlogBundle\Controller;
 
+use Blogger\BlogBundle\Helpers\Utils;
+
 use Blogger\BlogBundle\Entity\Blog;
 
 use Blogger\BlogBundle\Form\BlogType;
@@ -57,6 +59,9 @@ class AdminController extends Controller
      */
     public function homeAction()
     {
+        
+        Utils::log( __METHOD__ . " ". print_r($_SESSION, true));
+        
         return array('name' => $this->getUser()->getUsername());
     }
 
