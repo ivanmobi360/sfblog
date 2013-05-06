@@ -60,7 +60,7 @@ class AdminController extends Controller
     public function homeAction()
     {
         
-        Utils::log( __METHOD__ . " ". print_r($_SESSION, true));
+        //Utils::log( __METHOD__ . " ". print_r($_SESSION, true));
         
         return array('name' => $this->getUser()->getUsername());
     }
