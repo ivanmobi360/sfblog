@@ -14,10 +14,14 @@ class Utils{
     static public function clearLog($logThis=false,$place='')
     {
         $filename = __DIR__ . '/debuglog.txt';
+        self::clearFile($filename);
+        if($logThis) self::log(__METHOD__ . ": $place Log cleared");
+    }
+    
+    static function clearFile($filename){
         $fd = fopen($filename, 'w');
         ftruncate($fd,0);
         fclose($fd);
-        if($logThis) self::log(__METHOD__ . ": $place Log cleared");
     }
     
 }

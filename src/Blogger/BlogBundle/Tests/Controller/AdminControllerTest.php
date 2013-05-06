@@ -37,8 +37,18 @@ class AdminControllerTest extends WebTestCase
     function testLogin()
     {
         $client = $this->login();
-        $crawler = $client->request('GET', '/admin');
+        $crawler = $client->request('GET', '/admin/post/new');
         $this->assertTrue($client->getResponse()->isSuccessful());
+        
+        //Utils::log($crawler->text());
+        
+        //get the form and submit
+        $form = $crawler->selectButton('Submit')->form();
+        $crawler = $client->submit($form);
+        //$crawler = $client->followRedirect();
+        
+        Utils::log($crawler->text());
+        
         //Utils::log(print_r($_SESSION, true));
         /*$crawler = $client->followRedirect();
         echo $crawler->text();
