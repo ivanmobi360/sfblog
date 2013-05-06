@@ -2,6 +2,8 @@
 
 namespace Blogger\BlogBundle\Tests\Controller;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use Blogger\BlogBundle\Helpers\Utils;
 
 use Symfony\Component\BrowserKit\Cookie;
@@ -44,7 +46,7 @@ class AdminControllerTest extends WebTestCase
         
         //get the form and submit
         $form = $crawler->selectButton('Submit')->form();
-        $crawler = $client->submit($form);
+        $crawler = $client->submit($form, $this->getOkData());
         //$crawler = $client->followRedirect();
         
         Utils::log($crawler->text());
@@ -53,6 +55,15 @@ class AdminControllerTest extends WebTestCase
         /*$crawler = $client->followRedirect();
         echo $crawler->text();
         $this->assertTrue($client->getResponse()->isSuccessful());*/
+    }
+    
+    function getOkData(){
+        return array(
+                  'form[title]' => 'Post Test'
+                , 'form[blog]' => 'This is a monumental test for us.'
+                , 'form[tags]' => 'lol ok'
+                , 'form[file]' => new UploadedFile(__DIR__ . '/../Fixtures/foo.png', 'foo.png', 'image/png', '132674 ')
+                );
     }
     
     function login()
