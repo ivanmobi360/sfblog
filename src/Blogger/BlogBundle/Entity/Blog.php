@@ -50,7 +50,11 @@ class Blog {
     protected $image;
     
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(
+     *     maxSize="1024k",
+     *     mimeTypes =  {"image/jpeg", "image/gif", "image/png"},
+     *     mimeTypesMessage = "Please upload a valid image"
+     *     )
      */
     protected $file; //private element to hold uploaded file data
     
@@ -444,4 +448,9 @@ class Blog {
     {
         return $this->user;
     }
+    
+    
+    
+    
+    
 }

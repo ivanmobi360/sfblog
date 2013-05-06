@@ -36,7 +36,7 @@ class AdminControllerTest extends WebTestCase
         echo $crawler->text(); //apparently it is impossible to test*/
     }
     
-    function testLogin()
+    function xtestLogin()
     {
         $client = $this->login();
         $crawler = $client->request('GET', '/admin/post/new');
@@ -47,15 +47,33 @@ class AdminControllerTest extends WebTestCase
         //get the form and submit
         $form = $crawler->selectButton('Submit')->form();
         $crawler = $client->submit($form, $this->getOkData());
-        //$crawler = $client->followRedirect();
         
-        Utils::log($crawler->text());
+        Utils::log($crawler->text()); //while it does insert, the blog/show page has errors: "An exception has been thrown during the rendering of a template ("The security context contains no authentication token. One possible reason may be that there is no firewall configured for this URL.") in "BloggerBlogBundle:Blog:show.html.twig". (500 Internal Server Error)"
         
         //Utils::log(print_r($_SESSION, true));
         /*$crawler = $client->followRedirect();
         echo $crawler->text();
         $this->assertTrue($client->getResponse()->isSuccessful());*/
     }
+    
+    function testFail()
+    {
+        $client = $this->login();
+        $crawler = $client->request('GET', '/admin/post/new');
+        $this->assertTrue($client->getResponse()->isSuccessful());
+
+        $data = $this->getOkData();
+        //unset($data['form[file]']);
+        $data['form[file]'] = new UploadedFile(__DIR__ . '/../Fixtures/foo.txt', 'foo.txt', 'text/plain', '4 ');
+    
+        //get the form and submit
+        $form = $crawler->selectButton('Submit')->form();
+        $crawler = $client->submit($form, $data);
+    
+        Utils::log($crawler->text());
+
+    }
+    
     
     function getOkData(){
         return array(
@@ -91,15 +109,10 @@ class AdminControllerTest extends WebTestCase
         
         /*
         $session = $client->getContainer()->get('session');
-        $firewall = 'secured_area';
-        $token = new UsernamePasswordToken('admin', null, $firewall, array('ROLE_ADMIN'));
-        $session->set('_security_'.$firewall, serialize($token));
-        $session->save();
-        
         $cookie = new Cookie($session->getName(), $session->getId());
-        $client->getCookieJar()->set($cookie);*/
-        
-        
+        $client->getCookieJar()->set($cookie);
+        */
+
         return $client;
     }
 
