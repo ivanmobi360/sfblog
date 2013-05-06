@@ -15,7 +15,7 @@
     
     <div class="snippet" >
         <img src="{{ asset( ['images/', blog.image]|join ) }}" />
-        <p>{{ blog.blog(500) }}</p>
+        <p>{{ blog.blog(500)|nl2br }}</p>
         <p class="continue"><a href="{{ path( 'BloggerBlogBundle_blog_show', { 'id':blog.id, 'slug':blog.slug } ) }}" >Continue reading...</a></p>
     </div>
     
